@@ -23,7 +23,6 @@ import {
 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { SiTiktok, SiWhatsapp } from "react-icons/si";
-import { useActor } from "./hooks/useActor";
 
 // ─── Reveal Hook ─────────────────────────────────────────────────────────────
 function useReveal() {
@@ -794,7 +793,6 @@ function TestimonialsSection() {
 
 // ─── Audit Section ────────────────────────────────────────────────────────────
 function AuditSection() {
-  const { actor } = useActor();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [handle, setHandle] = useState("");
@@ -805,11 +803,14 @@ function AuditSection() {
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
-      if (!actor) return;
       setLoading(true);
       setError("");
       try {
-        await actor.submitAuditRequest(name, email, handle);
+        const subject = encodeURIComponent("Free Social Media Audit Request");
+        const body = encodeURIComponent(
+          `New Free Audit Request\n\nName: ${name}\nEmail: ${email}\nInstagram / Business URL: ${handle}`,
+        );
+        window.location.href = `mailto:thesocialtailor25@gmail.com?subject=${subject}&body=${body}`;
         setSuccess(true);
         setName("");
         setEmail("");
@@ -820,7 +821,7 @@ function AuditSection() {
         setLoading(false);
       }
     },
-    [actor, name, email, handle],
+    [name, email, handle],
   );
 
   return (
@@ -944,7 +945,6 @@ function AuditSection() {
 
 // ─── Contact Section ──────────────────────────────────────────────────────────
 function ContactSection() {
-  const { actor } = useActor();
   const [cName, setCName] = useState("");
   const [cEmail, setCEmail] = useState("");
   const [cPhone, setCPhone] = useState("");
@@ -956,11 +956,14 @@ function ContactSection() {
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
-      if (!actor) return;
       setLoading(true);
       setError("");
       try {
-        await actor.submitContactForm(cName, cEmail, cPhone, cMsg);
+        const subject = encodeURIComponent("New Contact Form Submission");
+        const body = encodeURIComponent(
+          `New Contact Form Submission\n\nName: ${cName}\nEmail: ${cEmail}\nPhone: ${cPhone || "N/A"}\n\nMessage:\n${cMsg}`,
+        );
+        window.location.href = `mailto:thesocialtailor25@gmail.com?subject=${subject}&body=${body}`;
         setSuccess(true);
         setCName("");
         setCEmail("");
@@ -972,7 +975,7 @@ function ContactSection() {
         setLoading(false);
       }
     },
-    [actor, cName, cEmail, cPhone, cMsg],
+    [cName, cEmail, cPhone, cMsg],
   );
 
   return (
@@ -1329,7 +1332,6 @@ function Footer() {
 
 // ─── Lead Capture Popup ───────────────────────────────────────────────────────
 function LeadPopup({ onClose }: { onClose: () => void }) {
-  const { actor } = useActor();
   const [email, setEmail] = useState("");
   const [handle, setHandle] = useState("");
   const [loading, setLoading] = useState(false);
@@ -1338,10 +1340,13 @@ function LeadPopup({ onClose }: { onClose: () => void }) {
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
-      if (!actor) return;
       setLoading(true);
       try {
-        await actor.submitAuditRequest("", email, handle);
+        const subject = encodeURIComponent("Free Social Media Audit Request");
+        const body = encodeURIComponent(
+          `New Free Audit Request\n\nEmail: ${email}\nInstagram / Business URL: ${handle}`,
+        );
+        window.location.href = `mailto:thesocialtailor25@gmail.com?subject=${subject}&body=${body}`;
         setSuccess(true);
         setTimeout(() => onClose(), 2500);
       } catch {
@@ -1350,7 +1355,7 @@ function LeadPopup({ onClose }: { onClose: () => void }) {
         setLoading(false);
       }
     },
-    [actor, email, handle, onClose],
+    [email, handle, onClose],
   );
 
   return (
