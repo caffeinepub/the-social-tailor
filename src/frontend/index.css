@@ -1,0 +1,268 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* ─── Light mode tokens ─── */
+    --background: 0.98 0 0;
+    --foreground: 0.1 0 0;
+
+    --card: 0.99 0 0;
+    --card-foreground: 0.1 0 0;
+
+    --popover: 0.99 0 0;
+    --popover-foreground: 0.1 0 0;
+
+    --primary: 0.62 0.12 68;
+    --primary-foreground: 0.99 0 0;
+
+    --secondary: 0.95 0.005 80;
+    --secondary-foreground: 0.2 0 0;
+
+    --muted: 0.95 0 0;
+    --muted-foreground: 0.52 0 0;
+
+    --accent: 0.62 0.12 68;
+    --accent-foreground: 0.99 0 0;
+
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+
+    --border: 0.88 0 0;
+    --input: 0.88 0 0;
+    --ring: 0.62 0.12 68;
+
+    --chart-1: 0.62 0.12 68;
+    --chart-2: 0.6 0.118 184;
+    --chart-3: 0.4 0.07 227;
+    --chart-4: 0.83 0.19 84;
+    --chart-5: 0.77 0.19 70;
+
+    --sidebar: 0.98 0 0;
+    --sidebar-foreground: 0.1 0 0;
+    --sidebar-primary: 0.62 0.12 68;
+    --sidebar-primary-foreground: 0.99 0 0;
+    --sidebar-accent: 0.95 0 0;
+    --sidebar-accent-foreground: 0.1 0 0;
+    --sidebar-border: 0.88 0 0;
+    --sidebar-ring: 0.62 0.12 68;
+
+    /* Brand tokens */
+    --gold: 0.72 0.14 68;
+    --gold-dim: 0.55 0.10 68;
+    --gold-bright: 0.82 0.16 68;
+    --dark-bg: 0.10 0 0;
+    --dark-card: 0.14 0 0;
+    --dark-border: 0.22 0 0;
+    --dark-muted: 0.45 0 0;
+  }
+
+  .dark {
+    --background: 0.10 0 0;
+    --foreground: 0.97 0 0;
+
+    --card: 0.14 0 0;
+    --card-foreground: 0.97 0 0;
+
+    --popover: 0.16 0 0;
+    --popover-foreground: 0.97 0 0;
+
+    --primary: 0.72 0.14 68;
+    --primary-foreground: 0.08 0 0;
+
+    --secondary: 0.20 0 0;
+    --secondary-foreground: 0.97 0 0;
+
+    --muted: 0.20 0 0;
+    --muted-foreground: 0.55 0 0;
+
+    --accent: 0.72 0.14 68;
+    --accent-foreground: 0.08 0 0;
+
+    --destructive: 0.704 0.191 22.216;
+    --destructive-foreground: 0.985 0 0;
+
+    --border: 0.25 0 0;
+    --input: 0.22 0 0;
+    --ring: 0.72 0.14 68;
+
+    --chart-1: 0.72 0.14 68;
+    --chart-2: 0.696 0.17 162;
+    --chart-3: 0.769 0.188 70;
+    --chart-4: 0.627 0.265 303;
+    --chart-5: 0.645 0.246 16;
+
+    --sidebar: 0.14 0 0;
+    --sidebar-foreground: 0.97 0 0;
+    --sidebar-primary: 0.72 0.14 68;
+    --sidebar-primary-foreground: 0.08 0 0;
+    --sidebar-accent: 0.20 0 0;
+    --sidebar-accent-foreground: 0.97 0 0;
+    --sidebar-border: 0.25 0 0;
+    --sidebar-ring: 0.72 0.14 68;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  /* Gold gradient text */
+  .text-gold-gradient {
+    background: linear-gradient(
+      135deg,
+      oklch(0.82 0.16 68) 0%,
+      oklch(0.72 0.14 68) 50%,
+      oklch(0.60 0.11 55) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Gold shimmer border */
+  .border-gold {
+    border-color: oklch(0.62 0.10 68);
+  }
+
+  .border-gold-bright {
+    border-color: oklch(0.72 0.14 68);
+  }
+
+  /* Subtle noise texture overlay */
+  .noise-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* Animate fade-up */
+  .animate-fade-up {
+    animation: fadeUp 0.7s ease-out both;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out both;
+  }
+
+  /* Glass card */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-card-light {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-12px) rotate(3deg); }
+  66% { transform: translateY(-6px) rotate(-2deg); }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delay {
+  animation: float 8s ease-in-out infinite;
+  animation-delay: -2s;
+}
+
+.animate-pulse-gold {
+  animation: pulse-gold 3s ease-in-out infinite;
+}
+
+/* Intersection observer animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* Premium scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(0.1 0 0);
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(0.30 0 0);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.62 0.10 68);
+}
+
+/* WhatsApp button */
+.whatsapp-btn {
+  background: #25D366;
+  color: white;
+}
+.whatsapp-btn:hover {
+  background: #1ebe5b;
+}
